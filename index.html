@@ -28,8 +28,15 @@
         .subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             font-size: 18px;
+        }
+        .order-count {
+            text-align: center;
+            color: #ff6b6b;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
         .packing-list {
             list-style: none;
@@ -44,6 +51,41 @@
             font-size: 20px;
             border-left: 5px solid #ff6b6b;
             font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .packing-item.checked {
+            opacity: 0.5;
+            border-left-color: #28a745;
+            background: #e8f5e9;
+        }
+        .packing-item.checked .item-text {
+            text-decoration: line-through;
+        }
+        .item-text {
+            flex: 1;
+        }
+        .check-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .check-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        .check-btn.undo {
+            background: #6c757d;
+        }
+        .check-btn.undo:hover {
+            background: #5a6268;
         }
         .refresh-btn {
             background: #007bff;
@@ -89,8 +131,14 @@
             color: #28a745;
             font-size: 20px;
         }
+        .progress-info {
+            text-align: center;
+            margin: 15px 0;
+            color: #666;
+            font-size: 16px;
+        }
         @media print {
-            .refresh-btn {
+            .refresh-btn, .check-btn {
                 display: none;
             }
             .container {
@@ -104,7 +152,11 @@
         <h1>📦 Packing Dashboard</h1>
         <p class="subtitle">True Indian Spices</p>
         
+        <div id="order-count" class="order-count"></div>
+        
         <button class="refresh-btn" onclick="fetchPackingList()">Refresh List</button>
+        
+        <div id="progress-info" class="progress-info"></div>
         
         <div id="content">
             <p class="loading">Loading packing list...</p>
@@ -117,9 +169,14 @@
         // Your N8N webhook URL
         const WEBHOOK_URL = 'https://trueindianspices.app.n8n.cloud/webhook/packing-summary';
         
+        // Store checked items in browser memory
+        let checkedItems = new Set();
+        let totalOrderCount = 0;
+        
         async function fetchPackingList() {
             const contentDiv = document.getElementById('content');
             const lastUpdatedDiv = document.getElementById('last-updated');
+            const orderCountDiv = document.getElementById('order-count');
             const refreshBtn = document.querySelector('.refresh-btn');
             
             // Show loading state
@@ -142,15 +199,41 @@
                 // Filter out any invalid items
                 items = items.filter(item => item && item.display);
                 
+                // Get unique order count (this is approximate based on the aggregated data)
+                // In a real implementation, you'd want to return this from N8N
+                const estimatedOrders = Math.max(...items.map(item => item.quantity || 1));
+                totalOrderCount = estimatedOrders;
+                
+                // Update order count display
+                if (items.length > 0) {
+                    orderCountDiv.textContent = `${totalOrderCount} unfulfilled order${totalOrderCount !== 1 ? 's' : ''}`;
+                } else {
+                    orderCountDiv.textContent = '';
+                }
+                
                 // Display the packing list
                 let html = '';
                 
                 if (items.length > 0) {
                     html = '<ul class="packing-list">';
-                    items.forEach(item => {
-                        html += `<li class="packing-item">${item.display}</li>`;
+                    items.forEach((item, index) => {
+                        const itemId = `item-${index}`;
+                        const isChecked = checkedItems.has(item.display);
+                        
+                        html += `
+                            <li class="packing-item ${isChecked ? 'checked' : ''}" id="${itemId}">
+                                <span class="item-text">${item.display}</span>
+                                <button class="check-btn ${isChecked ? 'undo' : ''}" 
+                                        onclick="toggleCheck('${itemId}', '${item.display.replace(/'/g, "\\'")}')"
+                                        data-checked="${isChecked}">
+                                    ${isChecked ? 'Undo' : 'Pack'}
+                                </button>
+                            </li>
+                        `;
                     });
                     html += '</ul>';
+                    
+                    updateProgress();
                 } else {
                     html = '<div class="no-orders">✅ No unfulfilled orders at the moment!</div>';
                 }
@@ -172,6 +255,44 @@
                 `;
             } finally {
                 refreshBtn.disabled = false;
+            }
+        }
+        
+        function toggleCheck(itemId, itemDisplay) {
+            const item = document.getElementById(itemId);
+            const button = item.querySelector('.check-btn');
+            
+            if (checkedItems.has(itemDisplay)) {
+                // Uncheck
+                checkedItems.delete(itemDisplay);
+                item.classList.remove('checked');
+                button.classList.remove('undo');
+                button.textContent = 'Pack';
+            } else {
+                // Check
+                checkedItems.add(itemDisplay);
+                item.classList.add('checked');
+                button.classList.add('undo');
+                button.textContent = 'Undo';
+            }
+            
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const progressDiv = document.getElementById('progress-info');
+            const totalItems = document.querySelectorAll('.packing-item').length;
+            const checkedCount = checkedItems.size;
+            
+            if (totalItems > 0) {
+                const percentage = Math.round((checkedCount / totalItems) * 100);
+                progressDiv.textContent = `Progress: ${checkedCount}/${totalItems} items packed (${percentage}%)`;
+                
+                if (percentage === 100) {
+                    progressDiv.innerHTML += ' 🎉';
+                }
+            } else {
+                progressDiv.textContent = '';
             }
         }
         
