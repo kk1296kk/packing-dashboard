@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Indian Spices - Packing Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        .packing-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .packing-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 20px;
+            border-left: 5px solid #ff6b6b;
+            font-weight: 500;
+        }
+        .refresh-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            display: block;
+            margin: 20px auto;
+            transition: background 0.3s;
+        }
+        .refresh-btn:hover {
+            background: #0056b3;
+        }
+        .refresh-btn:active {
+            transform: scale(0.98);
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            padding: 40px 0;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 5px solid #f5c6cb;
+        }
+        .last-updated {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        .no-orders {
+            text-align: center;
+            padding: 40px;
+            color: #28a745;
+            font-size: 20px;
+        }
+        @media print {
+            .refresh-btn {
+                display: none;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Packing Dashboard</h1>
+        <p class="subtitle">True Indian Spices</p>
+        
+        <button class="refresh-btn" onclick="fetchPackingList()">Refresh List</button>
+        
+        <div id="content">
+            <p class="loading">Loading packing list...</p>
+        </div>
+        
+        <p class="last-updated" id="last-updated"></p>
+    </div>
+
+    <script>
+        // Your N8N webhook URL
+        const WEBHOOK_URL = 'https://trueindianspices.app.n8n.cloud/webhook/packing-summary';
+        
+        async function fetchPackingList() {
+            const contentDiv = document.getElementById('content');
+            const lastUpdatedDiv = document.getElementById('last-updated');
+            const refreshBtn = document.querySelector('.refresh-btn');
+            
+            // Show loading state
+            contentDiv.innerHTML = '<p class="loading">Loading packing list...</p>';
+            refreshBtn.disabled = true;
+            
+            try {
+                const response = await fetch(WEBHOOK_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('Received data:', data); // Debug log
+                
+                // Handle the response - could be array or single object
+                let items = Array.isArray(data) ? data : [data];
+                
+                // Filter out any invalid items
+                items = items.filter(item => item && item.display);
+                
+                // Display the packing list
+                let html = '';
+                
+                if (items.length > 0) {
+                    html = '<ul class="packing-list">';
+                    items.forEach(item => {
+                        html += `<li class="packing-item">${item.display}</li>`;
+                    });
+                    html += '</ul>';
+                } else {
+                    html = '<div class="no-orders">✅ No unfulfilled orders at the moment!</div>';
+                }
+                
+                contentDiv.innerHTML = html;
+                
+                // Update last refreshed time
+                const now = new Date();
+                lastUpdatedDiv.textContent = `Last updated: ${now.toLocaleTimeString('en-AU')}`;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                contentDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error loading data:</strong><br>
+                        ${error.message}<br><br>
+                        Please try again or check your N8N workflow.
+                    </div>
+                `;
+            } finally {
+                refreshBtn.disabled = false;
+            }
+        }
+        
+        // Load data when page opens
+        fetchPackingList();
+        
+        // Auto-refresh every 5 minutes
+        setInterval(fetchPackingList, 5 * 60 * 1000);
+        
+        // Allow refresh with keyboard (R key)
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'r' || event.key === 'R') {
+                fetchPackingList();
+            }
+        });
+    </script>
+</body>
+</html>
