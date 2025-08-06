@@ -38,6 +38,15 @@
             margin-bottom: 10px;
         }
         
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
         .meta-info {
             opacity: 0.9;
         }
@@ -171,6 +180,88 @@
             font-size: 1.2em;
         }
         
+        /* Popular items section */
+        .popular-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 3px solid #e0e0e0;
+        }
+        
+        .popular-items-container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .popular-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .popular-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .popular-rank {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #3498db;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .popular-item-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+        
+        .popular-item-name {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .popular-item-bar-container {
+            position: relative;
+            background: #f0f0f0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .popular-item-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            border-radius: 15px;
+            transition: width 0.3s ease;
+        }
+        
+        .popular-item-quantity {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            color: #333;
+            z-index: 1;
+        }
+        
+        .popular-meta {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -191,6 +282,20 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 5px;
+            }
+            
+            .popular-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .popular-rank {
+                margin-bottom: 10px;
+            }
+            
+            .popular-item-details {
+                margin-left: 0;
+                width: 100%;
             }
         }
         
@@ -219,6 +324,10 @@
                 background-color: #f0f0f0;
                 color: black;
             }
+            
+            .popular-section {
+                page-break-before: always;
+            }
         }
     </style>
 </head>
@@ -227,7 +336,7 @@
         <header>
             <h1>📦 Packing List</h1>
             <div class="meta-info">
-                <div>Last Updated: Aug 5, 2025, 10:31 PM</div>
+                <div>Last Updated: Aug 6, 2025, 03:58 PM</div>
             </div>
         </header>
         
@@ -553,6 +662,157 @@
         
         <div id="noResults" class="no-results" style="display: none;">
             No products found matching your search.
+        </div>
+        
+        <!-- Popular Items Section -->
+        <div class="popular-section">
+            <h2>📈 Top Products - Last 30 Days</h2>
+            <div class="popular-meta" style="margin-bottom: 20px; color: #666;">
+                Based on 5 orders from the last 30 days
+            </div>
+            <div class="popular-items-container">
+
+                <div class="popular-item">
+                    <div class="popular-rank">#1</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 100%"></div>
+                            <div class="popular-item-quantity">3 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#2</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Kashmiri Chilli Powder</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 100%"></div>
+                            <div class="popular-item-quantity">3 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#3</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Tandoori Chicken Spice Mix</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 66.66666666666666%"></div>
+                            <div class="popular-item-quantity">2 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#4</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Chicken Curry Masala Powder</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 66.66666666666666%"></div>
+                            <div class="popular-item-quantity">2 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#5</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Butter Chicken Spice Mix</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#6</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Indian Serving Bowl Copper</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#7</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Indian Spice Box</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#8</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">4-Pack: Chicken Curry Spice Mix Set</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#9</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Cinnamon Sticks</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#10</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Chicken Tikka Masala Spice Mix</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#11</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Green Cardamom Pods</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#12</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Fenugreek Seeds</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#13</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Cloves</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="popular-item">
+                    <div class="popular-rank">#14</div>
+                    <div class="popular-item-details">
+                        <div class="popular-item-name">Kasoori Methi (Dried Fenugreek Leaves)</div>
+                        <div class="popular-item-bar-container">
+                            <div class="popular-item-bar" style="width: 33.33333333333333%"></div>
+                            <div class="popular-item-quantity">1 units</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
