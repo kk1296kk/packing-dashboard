@@ -1,10 +1,21 @@
-<!DOCTYPE html>
+const data = $input.first().json;
+const generatedAt = new Date(data.generatedAt);
+const formattedDate = generatedAt.toLocaleString('en-US', { 
+  timeZone: 'America/New_York',
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit'
+});
+
+// Generate HTML
+let html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="300">
-    <title>Packing List - Aug 5, 2025, 08:45 PM</title>
+    <title>Packing List</title>
     <style>
         * {
             margin: 0;
@@ -40,10 +51,6 @@
         }
         
         .meta-info {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
             opacity: 0.9;
         }
         
@@ -136,6 +143,7 @@
         .variant-name {
             font-weight: 600;
             color: #2c3e50;
+            font-size: 1.1em;
         }
         
         .variant-quantity {
@@ -148,12 +156,6 @@
             font-size: 0.9em;
             color: #666;
             margin-top: 5px;
-        }
-        
-        .sku {
-            font-size: 0.85em;
-            color: #999;
-            font-style: italic;
         }
         
         .search-box {
@@ -235,360 +237,73 @@
 <body>
     <div class="container">
         <header>
-            <h1>📦 Warehouse Packing List</h1>
+            <h1>📦 Packing List</h1>
             <div class="meta-info">
-                <div>Last Updated: Aug 5, 2025, 08:45 PM</div>
-                <div>Auto-refresh: Every 5 minutes</div>
+                <div>Last Updated: ${formattedDate}</div>
             </div>
         </header>
         
         <div class="stats">
             <div class="stat-card">
-                <div class="stat-number">4</div>
+                <div class="stat-number">${data.totalOrders}</div>
                 <div class="stat-label">Unfulfilled Orders</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">13</div>
+                <div class="stat-number">${data.productGroups.length}</div>
                 <div class="stat-label">Product Groups</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">16</div>
+                <div class="stat-number">${data.productGroups.reduce((sum, g) => sum + g.totalQuantity, 0)}</div>
                 <div class="stat-label">Total Items to Pack</div>
             </div>
         </div>
         
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search products, SKUs, or order numbers..." onkeyup="filterProducts()">
+            <input type="text" id="searchInput" placeholder="Search products or order numbers..." onkeyup="filterProducts()">
         </div>
         
         <div id="productList">
+`;
 
-            <div class="product-group" data-search="kashmiri chilli powder (hot) free sample  #2058 #2057">
-                <div class="group-header" onclick="toggleGroup('group-0')">
-                    <div class="group-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div>
-                    <div class="group-quantity">2 units</div>
+// Generate product groups
+data.productGroups.forEach((group, index) => {
+    const groupId = `group-${index}`;
+    
+    html += `
+            <div class="product-group" data-search="${group.groupName.toLowerCase()} ${group.variants.map(v => v.orders.join(' ')).join(' ').toLowerCase()}">
+                <div class="group-header" onclick="toggleGroup('${groupId}')">
+                    <div class="group-name">${group.groupName}</div>
+                    <div class="group-quantity">${group.totalQuantity} units</div>
                 </div>
-                <div class="variants" id="group-0" style="display: block;">
-
+                <div class="variants" id="${groupId}" style="display: block;">
+`;
+    
+    // Add variants
+    group.variants.forEach(variant => {
+        const variantName = variant.variantTitle ? 
+            `${variant.fullName} - ${variant.variantTitle}` : 
+            variant.fullName;
+        
+        html += `
                     <div class="variant">
                         <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE - 50g</div>
-                                
-                                
-                            </div>
-                            <div class="variant-quantity">2 units</div>
+                            <div class="variant-name">${variantName}</div>
+                            <div class="variant-quantity">${variant.quantity} units</div>
                         </div>
                         <div class="order-numbers">
-                            <strong>Orders:</strong> #2058, #2057
+                            <strong>Orders:</strong> ${variant.orders.join(', ')}
                         </div>
                     </div>
-
+`;
+    });
+    
+    html += `
                 </div>
             </div>
+`;
+});
 
-            <div class="product-group" data-search="chicken curry masala powder tis-009-j #2057 #2056">
-                <div class="group-header" onclick="toggleGroup('group-1')">
-                    <div class="group-name">Chicken Curry Masala Powder</div>
-                    <div class="group-quantity">2 units</div>
-                </div>
-                <div class="variants" id="group-1" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Chicken Curry Masala Powder</div>
-                                <div class="sku">SKU: TIS-009-J</div>
-                                
-                            </div>
-                            <div class="variant-quantity">2 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2057, #2056
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="kashmiri chilli powder tis-023-p #2056 tis-023-j #2055">
-                <div class="group-header" onclick="toggleGroup('group-2')">
-                    <div class="group-name">Kashmiri Chilli Powder</div>
-                    <div class="group-quantity">2 units</div>
-                </div>
-                <div class="variants" id="group-2" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Kashmiri Chilli Powder - 100g (pouch) - 100g (pouch)</div>
-                                <div class="sku">SKU: TIS-023-P</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2056
-                        </div>
-                    </div>
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Kashmiri Chilli Powder - 50g (jar) - 50g (jar)</div>
-                                <div class="sku">SKU: TIS-023-J</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2055
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="indian serving bowl copper tis-101-sm #2058">
-                <div class="group-header" onclick="toggleGroup('group-3')">
-                    <div class="group-name">Indian Serving Bowl Copper</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-3" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Indian Serving Bowl Copper (Kadai)</div>
-                                <div class="sku">SKU: TIS-101-SM</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2058
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="indian spice box tis-301-box #2058">
-                <div class="group-header" onclick="toggleGroup('group-4')">
-                    <div class="group-name">Indian Spice Box</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-4" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Indian Spice Box (with 7 Essential Spices)</div>
-                                <div class="sku">SKU: TIS-301-BOX</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2058
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="4-pack: chicken curry spice mix set tis-203-set #2057">
-                <div class="group-header" onclick="toggleGroup('group-5')">
-                    <div class="group-name">4-Pack: Chicken Curry Spice Mix Set</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-5" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">4-Pack: Chicken Curry Spice Mix Set</div>
-                                <div class="sku">SKU: TIS-203-SET</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2057
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="tandoori chicken spice mix tis-015-j #2057">
-                <div class="group-header" onclick="toggleGroup('group-6')">
-                    <div class="group-name">Tandoori Chicken Spice Mix</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-6" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Tandoori Chicken Spice Mix - 60g (jar) - 60g (jar)</div>
-                                <div class="sku">SKU: TIS-015-J</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2057
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="cinnamon sticks tis-008-p #2057">
-                <div class="group-header" onclick="toggleGroup('group-7')">
-                    <div class="group-name">Cinnamon Sticks</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-7" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Cinnamon Sticks - 50g - 50g</div>
-                                <div class="sku">SKU: TIS-008-P</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2057
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="chicken tikka masala spice mix tis-003-j #2056">
-                <div class="group-header" onclick="toggleGroup('group-8')">
-                    <div class="group-name">Chicken Tikka Masala Spice Mix</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-8" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Chicken Tikka Masala Spice Mix - 70g (jar) - 70g (jar)</div>
-                                <div class="sku">SKU: TIS-003-J</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2056
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="green cardamom pods tis-021-j #2056">
-                <div class="group-header" onclick="toggleGroup('group-9')">
-                    <div class="group-name">Green Cardamom Pods</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-9" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Green Cardamom Pods - 50g (jar) - 50g (jar)</div>
-                                <div class="sku">SKU: TIS-021-J</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2056
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="fenugreek seeds tis-019-j #2056">
-                <div class="group-header" onclick="toggleGroup('group-10')">
-                    <div class="group-name">Fenugreek Seeds</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-10" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Fenugreek Seeds - 90g (jar) - 90g (jar)</div>
-                                <div class="sku">SKU: TIS-019-J</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2056
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="cloves tis-018-j #2056">
-                <div class="group-header" onclick="toggleGroup('group-11')">
-                    <div class="group-name">Cloves</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-11" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Cloves - 40g (jar) - 40g (jar)</div>
-                                <div class="sku">SKU: TIS-018-J</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2056
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="product-group" data-search="kasoori methi (dried fenugreek leaves) tis-007-j #2055">
-                <div class="group-header" onclick="toggleGroup('group-12')">
-                    <div class="group-name">Kasoori Methi (Dried Fenugreek Leaves)</div>
-                    <div class="group-quantity">1 units</div>
-                </div>
-                <div class="variants" id="group-12" style="display: block;">
-
-                    <div class="variant">
-                        <div class="variant-header">
-                            <div>
-                                <div class="variant-name">Kasoori Methi (Dried Fenugreek Leaves) - 10g (jar) - 10g (jar)</div>
-                                <div class="sku">SKU: TIS-007-J</div>
-                                
-                            </div>
-                            <div class="variant-quantity">1 units</div>
-                        </div>
-                        <div class="order-numbers">
-                            <strong>Orders:</strong> #2055
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
+html += `
         </div>
         
         <div id="noResults" class="no-results" style="display: none;">
@@ -632,15 +347,9 @@
                 productList.style.display = 'block';
             }
         }
-        
-        // Auto-refresh countdown (optional)
-        let secondsUntilRefresh = 300;
-        setInterval(() => {
-            secondsUntilRefresh--;
-            if (secondsUntilRefresh <= 0) {
-                location.reload();
-            }
-        }, 1000);
     </script>
 </body>
 </html>
+`;
+
+return [{ html: html, filename: 'index.html' }];
