@@ -1,16 +1,4 @@
-const data = $input.first().json;
-const generatedAt = new Date(data.generatedAt);
-const formattedDate = generatedAt.toLocaleString('en-US', { 
-  timeZone: 'America/New_York',
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit'
-});
-
-// Generate HTML
-let html = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -239,21 +227,21 @@ let html = `<!DOCTYPE html>
         <header>
             <h1>📦 Packing List</h1>
             <div class="meta-info">
-                <div>Last Updated: ${formattedDate}</div>
+                <div>Last Updated: Aug 5, 2025, 09:48 PM</div>
             </div>
         </header>
         
         <div class="stats">
             <div class="stat-card">
-                <div class="stat-number">${data.totalOrders}</div>
+                <div class="stat-number">4</div>
                 <div class="stat-label">Unfulfilled Orders</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">${data.productGroups.length}</div>
+                <div class="stat-number">13</div>
                 <div class="stat-label">Product Groups</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">${data.productGroups.reduce((sum, g) => sum + g.totalQuantity, 0)}</div>
+                <div class="stat-number">16</div>
                 <div class="stat-label">Total Items to Pack</div>
             </div>
         </div>
@@ -263,47 +251,250 @@ let html = `<!DOCTYPE html>
         </div>
         
         <div id="productList">
-`;
 
-// Generate product groups
-data.productGroups.forEach((group, index) => {
-    const groupId = `group-${index}`;
-    
-    html += `
-            <div class="product-group" data-search="${group.groupName.toLowerCase()} ${group.variants.map(v => v.orders.join(' ')).join(' ').toLowerCase()}">
-                <div class="group-header" onclick="toggleGroup('${groupId}')">
-                    <div class="group-name">${group.groupName}</div>
-                    <div class="group-quantity">${group.totalQuantity} units</div>
+            <div class="product-group" data-search="kashmiri chilli powder (hot) free sample #2058 #2057">
+                <div class="group-header" onclick="toggleGroup('group-0')">
+                    <div class="group-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div>
+                    <div class="group-quantity">2 units</div>
                 </div>
-                <div class="variants" id="${groupId}" style="display: block;">
-`;
-    
-    // Add variants
-    group.variants.forEach(variant => {
-        const variantName = variant.variantTitle ? 
-            `${variant.fullName} - ${variant.variantTitle}` : 
-            variant.fullName;
-        
-        html += `
+                <div class="variants" id="group-0" style="display: block;">
+
                     <div class="variant">
                         <div class="variant-header">
-                            <div class="variant-name">${variantName}</div>
-                            <div class="variant-quantity">${variant.quantity} units</div>
+                            <div class="variant-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE - 50g</div>
+                            <div class="variant-quantity">2 units</div>
                         </div>
                         <div class="order-numbers">
-                            <strong>Orders:</strong> ${variant.orders.join(', ')}
+                            <strong>Orders:</strong> #2058, #2057
                         </div>
                     </div>
-`;
-    });
-    
-    html += `
                 </div>
             </div>
-`;
-});
+            <div class="product-group" data-search="chicken curry masala powder #2057 #2056">
+                <div class="group-header" onclick="toggleGroup('group-1')">
+                    <div class="group-name">Chicken Curry Masala Powder</div>
+                    <div class="group-quantity">2 units</div>
+                </div>
+                <div class="variants" id="group-1" style="display: block;">
 
-html += `
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Chicken Curry Masala Powder</div>
+                            <div class="variant-quantity">2 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057, #2056
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="kashmiri chilli powder #2056 #2055">
+                <div class="group-header" onclick="toggleGroup('group-2')">
+                    <div class="group-name">Kashmiri Chilli Powder</div>
+                    <div class="group-quantity">2 units</div>
+                </div>
+                <div class="variants" id="group-2" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Kashmiri Chilli Powder - 100g (pouch) - 100g (pouch)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2056
+                        </div>
+                    </div>
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Kashmiri Chilli Powder - 50g (jar) - 50g (jar)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2055
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="indian serving bowl copper #2058">
+                <div class="group-header" onclick="toggleGroup('group-3')">
+                    <div class="group-name">Indian Serving Bowl Copper</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-3" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Indian Serving Bowl Copper (Kadai)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2058
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="indian spice box #2058">
+                <div class="group-header" onclick="toggleGroup('group-4')">
+                    <div class="group-name">Indian Spice Box</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-4" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Indian Spice Box (with 7 Essential Spices)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2058
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="4-pack: chicken curry spice mix set #2057">
+                <div class="group-header" onclick="toggleGroup('group-5')">
+                    <div class="group-name">4-Pack: Chicken Curry Spice Mix Set</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-5" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">4-Pack: Chicken Curry Spice Mix Set</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="tandoori chicken spice mix #2057">
+                <div class="group-header" onclick="toggleGroup('group-6')">
+                    <div class="group-name">Tandoori Chicken Spice Mix</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-6" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Tandoori Chicken Spice Mix - 60g (jar) - 60g (jar)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="cinnamon sticks #2057">
+                <div class="group-header" onclick="toggleGroup('group-7')">
+                    <div class="group-name">Cinnamon Sticks</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-7" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Cinnamon Sticks - 50g - 50g</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="chicken tikka masala spice mix #2056">
+                <div class="group-header" onclick="toggleGroup('group-8')">
+                    <div class="group-name">Chicken Tikka Masala Spice Mix</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-8" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Chicken Tikka Masala Spice Mix - 70g (jar) - 70g (jar)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2056
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="green cardamom pods #2056">
+                <div class="group-header" onclick="toggleGroup('group-9')">
+                    <div class="group-name">Green Cardamom Pods</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-9" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Green Cardamom Pods - 50g (jar) - 50g (jar)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2056
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="fenugreek seeds #2056">
+                <div class="group-header" onclick="toggleGroup('group-10')">
+                    <div class="group-name">Fenugreek Seeds</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-10" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Fenugreek Seeds - 90g (jar) - 90g (jar)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2056
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="cloves #2056">
+                <div class="group-header" onclick="toggleGroup('group-11')">
+                    <div class="group-name">Cloves</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-11" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Cloves - 40g (jar) - 40g (jar)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2056
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="kasoori methi (dried fenugreek leaves) #2055">
+                <div class="group-header" onclick="toggleGroup('group-12')">
+                    <div class="group-name">Kasoori Methi (Dried Fenugreek Leaves)</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-12" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Kasoori Methi (Dried Fenugreek Leaves) - 10g (jar) - 10g (jar)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2055
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div id="noResults" class="no-results" style="display: none;">
@@ -336,7 +527,6 @@ html += `
                 }
             });
             
-            // Show/hide no results message
             const noResults = document.getElementById('noResults');
             const productList = document.getElementById('productList');
             if (visibleCount === 0 && searchValue !== '') {
@@ -350,6 +540,3 @@ html += `
     </script>
 </body>
 </html>
-`;
-
-return [{ html: html, filename: 'index.html' }];
