@@ -20,9 +20,29 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 24px;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .left-panel {
+            min-width: 0;
+        }
+
+        .right-panel {
+            position: sticky;
+            top: 24px;
+            height: fit-content;
+            max-height: calc(100vh - 48px);
+            display: flex;
+            flex-direction: column;
         }
 
         header {
@@ -247,6 +267,185 @@
             font-size: 14px;
         }
 
+        /* Order Panel Styles */
+        .order-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #e9e9e7;
+        }
+
+        .order-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid #e9e9e7;
+            cursor: pointer;
+            transition: background 0.1s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-item:hover {
+            background: #fafafa;
+        }
+
+        .order-item.active {
+            background: #f1f1ef;
+            border-left: 3px solid #37352f;
+            padding-left: 17px;
+        }
+
+        .order-item-number {
+            font-weight: 500;
+            color: #37352f;
+        }
+
+        .order-item-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 12px;
+            color: #787774;
+        }
+
+        .order-details {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .order-details-empty {
+            text-align: center;
+            color: #787774;
+            padding: 40px 20px;
+            font-size: 14px;
+        }
+
+        .order-header-info {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9e9e7;
+        }
+
+        .order-number-large {
+            font-size: 24px;
+            font-weight: 700;
+            color: #37352f;
+            margin-bottom: 8px;
+        }
+
+        .order-meta {
+            font-size: 12px;
+            color: #787774;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #787774;
+            margin-bottom: 8px;
+        }
+
+        .info-content {
+            font-size: 14px;
+            color: #37352f;
+            line-height: 1.6;
+        }
+
+        .order-items-list {
+            margin-top: 8px;
+        }
+
+        .order-item-detail {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f1ef;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .order-item-detail:last-child {
+            border-bottom: none;
+        }
+
+        .item-name-detail {
+            flex: 1;
+            font-size: 14px;
+            color: #37352f;
+        }
+
+        .item-variant {
+            font-size: 12px;
+            color: #787774;
+            margin-top: 2px;
+        }
+
+        .item-quantity-detail {
+            font-size: 14px;
+            color: #eb5757;
+            font-weight: 500;
+            margin-left: 16px;
+        }
+
+        .order-note {
+            background: #fafafa;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #37352f;
+            border-left: 3px solid #ffeb3b;
+        }
+
+        .order-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            background: #f1f1ef;
+            color: #37352f;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .print-button {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            padding: 6px 12px;
+            background: #37352f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .print-button:hover {
+            background: #000;
+        }
+
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .right-panel {
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: 1fr;
@@ -269,6 +468,50 @@
             .variant {
                 padding-left: 40px;
             }
+
+            .right-panel {
+                display: none;
+            }
+
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print and (max-width: 999999px) {
+            .print-mode .left-panel {
+                display: none !important;
+            }
+
+            .print-mode .right-panel {
+                display: block !important;
+                position: relative !important;
+                max-height: none !important;
+            }
+
+            .print-mode .main-layout {
+                grid-template-columns: 1fr !important;
+            }
+
+            .print-mode .stats-grid {
+                display: none !important;
+            }
+
+            .print-mode header {
+                display: none !important;
+            }
+
+            .print-mode .print-button {
+                display: none !important;
+            }
+
+            .print-mode .order-list {
+                display: none !important;
+            }
+
+            .print-mode .panel-header {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -276,7 +519,7 @@
     <div class="container">
         <header>
             <h1>Packing Dashboard</h1>
-            <div class="subtitle">Last updated: Aug 7, 2025, 10:52 PM</div>
+            <div class="subtitle">Last updated: Aug 7, 2025, 11:17 PM</div>
         </header>
 
         <div class="stats-grid">
@@ -294,13 +537,15 @@
             </div>
         </div>
 
-        <div class="panel">
-            <div class="panel-header">📦 Packing List</div>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search products or order number (e.g., 2057)..." onkeyup="filterProducts()">
-                <div id="searchHint" class="search-hint"></div>
-            </div>
-            <div class="product-list" id="productList">
+        <div class="main-layout">
+            <div class="left-panel">
+                <div class="panel">
+                    <div class="panel-header">📦 Packing List</div>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search products or order number (e.g., 2057)..." onkeyup="filterProducts()">
+                        <div id="searchHint" class="search-hint"></div>
+                    </div>
+                    <div class="product-list" id="productList">
 
                 <div class="product-group" 
                      data-search="kashmiri chilli powder (hot) free sample" 
@@ -614,14 +859,35 @@
                         </div>
                     </div>
                 </div>
+                    </div>
+                    <div id="noResults" class="no-results" style="display: none;">
+                        No products found
+                    </div>
+                </div>
             </div>
-            <div id="noResults" class="no-results" style="display: none;">
-                No products found
+
+            <div class="right-panel">
+                <div class="panel">
+                    <div class="panel-header" style="position: relative;">
+                        📋 Order Details
+                        <button class="print-button" onclick="printOrder()" id="printBtn" style="display: none;">Print Order</button>
+                    </div>
+                    <div class="order-list">
+
+                    </div>
+                    <div class="order-details" id="orderDetails">
+                        <div class="order-details-empty">
+                            Select an order to view details
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        const orderData = {};
+        let currentSelectedOrder = null;
         function toggleGroup(groupId) {
             const element = document.getElementById(groupId);
             if (element.style.display === 'none') {
@@ -740,10 +1006,10 @@
             // Update search hint
             if (isOrderSearch && searchValue !== '') {
                 if (totalVisibleItems > 0) {
-                    searchHint.textContent = 'Showing ' + totalVisibleItems + ' item(s) for order #' + cleanOrderSearch;
+                    searchHint.textContent = `Showing ${totalVisibleItems} item(s) for order #${cleanOrderSearch}`;
                     searchHint.classList.add('active');
                 } else {
-                    searchHint.textContent = 'No items found for order #' + cleanOrderSearch;
+                    searchHint.textContent = `No items found for order #${cleanOrderSearch}`;
                     searchHint.classList.add('active');
                 }
             } else {
