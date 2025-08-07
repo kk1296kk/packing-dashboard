@@ -110,6 +110,17 @@
             background: #ffffff;
         }
 
+        .search-hint {
+            font-size: 12px;
+            color: #787774;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .search-hint.active {
+            display: block;
+        }
+
         .product-list {
             max-height: 70vh;
             overflow-y: auto;
@@ -221,6 +232,14 @@
             color: #787774;
         }
 
+        .order-numbers .highlight {
+            background-color: #ffeb3b;
+            padding: 1px 3px;
+            border-radius: 2px;
+            color: #37352f;
+            font-weight: 500;
+        }
+
         .no-results {
             text-align: center;
             padding: 40px;
@@ -257,7 +276,7 @@
     <div class="container">
         <header>
             <h1>Packing Dashboard</h1>
-            <div class="subtitle">Last updated: Aug 7, 2025, 07:18 PM</div>
+            <div class="subtitle">Last updated: Aug 7, 2025, 10:52 PM</div>
         </header>
 
         <div class="stats-grid">
@@ -278,255 +297,319 @@
         <div class="panel">
             <div class="panel-header">📦 Packing List</div>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search products or orders..." onkeyup="filterProducts()">
+                <input type="text" id="searchInput" placeholder="Search products or order number (e.g., 2057)..." onkeyup="filterProducts()">
+                <div id="searchHint" class="search-hint"></div>
             </div>
             <div class="product-list" id="productList">
 
-                <div class="product-group" data-search="kashmiri chilli powder (hot) free sample #2060 #2059 #2058 #2057">
+                <div class="product-group" 
+                     data-search="kashmiri chilli powder (hot) free sample" 
+                     data-orders="#2060,#2059,#2058,#2057"
+                     data-group-id="0">
                     <div class="group-header" onclick="toggleGroup('group-0')">
                         <div class="group-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div>
                         <div class="group-quantity">4 units</div>
                     </div>
                     <div class="variants" id="group-0" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2060,#2059,#2058,#2057"
+                             data-variant-id="variant-0-0">
                             <div class="variant-checkbox" id="check-variant-0-0" onclick="toggleCheck('variant-0-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-0-0">Kashmiri Chilli Powder (Hot) FREE SAMPLE - 50g</div>
                                     <div class="variant-quantity">4 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2060, #2059, #2058, #2057</div>
+                                <div class="order-numbers" id="orders-variant-0-0">Orders: #2060, #2059, #2058, #2057</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="kashmiri chilli powder #2060 #2059">
+                <div class="product-group" 
+                     data-search="kashmiri chilli powder" 
+                     data-orders="#2060,#2059"
+                     data-group-id="1">
                     <div class="group-header" onclick="toggleGroup('group-1')">
                         <div class="group-name">Kashmiri Chilli Powder</div>
                         <div class="group-quantity">3 units</div>
                     </div>
                     <div class="variants" id="group-1" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2060"
+                             data-variant-id="variant-1-0">
                             <div class="variant-checkbox" id="check-variant-1-0" onclick="toggleCheck('variant-1-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-1-0">Kashmiri Chilli Powder - 50g (jar)</div>
                                     <div class="variant-quantity">2 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2060</div>
+                                <div class="order-numbers" id="orders-variant-1-0">Orders: #2060</div>
                             </div>
                         </div>
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2059"
+                             data-variant-id="variant-1-1">
                             <div class="variant-checkbox" id="check-variant-1-1" onclick="toggleCheck('variant-1-1')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-1-1">Kashmiri Chilli Powder - 100g (pouch)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2059</div>
+                                <div class="order-numbers" id="orders-variant-1-1">Orders: #2059</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="tandoori chicken spice mix #2059 #2057 #2057">
+                <div class="product-group" 
+                     data-search="tandoori chicken spice mix" 
+                     data-orders="#2059,#2057,#2057"
+                     data-group-id="2">
                     <div class="group-header" onclick="toggleGroup('group-2')">
                         <div class="group-name">Tandoori Chicken Spice Mix</div>
                         <div class="group-quantity">3 units</div>
                     </div>
                     <div class="variants" id="group-2" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2059"
+                             data-variant-id="variant-2-0">
                             <div class="variant-checkbox" id="check-variant-2-0" onclick="toggleCheck('variant-2-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-2-0">Tandoori Chicken Spice Mix - 100g (pouch)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2059</div>
+                                <div class="order-numbers" id="orders-variant-2-0">Orders: #2059</div>
                             </div>
                         </div>
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2057"
+                             data-variant-id="variant-2-1">
                             <div class="variant-checkbox" id="check-variant-2-1" onclick="toggleCheck('variant-2-1')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-2-1">Tandoori Chicken Spice Mix (60g Jar)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2057</div>
+                                <div class="order-numbers" id="orders-variant-2-1">Orders: #2057</div>
                             </div>
                         </div>
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2057"
+                             data-variant-id="variant-2-2">
                             <div class="variant-checkbox" id="check-variant-2-2" onclick="toggleCheck('variant-2-2')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-2-2">Tandoori Chicken Spice Mix - 60g (jar)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2057</div>
+                                <div class="order-numbers" id="orders-variant-2-2">Orders: #2057</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="butter chicken spice mix #2059 #2057">
+                <div class="product-group" 
+                     data-search="butter chicken spice mix" 
+                     data-orders="#2059,#2057"
+                     data-group-id="3">
                     <div class="group-header" onclick="toggleGroup('group-3')">
                         <div class="group-name">Butter Chicken Spice Mix</div>
                         <div class="group-quantity">2 units</div>
                     </div>
                     <div class="variants" id="group-3" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2059"
+                             data-variant-id="variant-3-0">
                             <div class="variant-checkbox" id="check-variant-3-0" onclick="toggleCheck('variant-3-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-3-0">Butter Chicken Spice Mix - 100g (pouch)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2059</div>
+                                <div class="order-numbers" id="orders-variant-3-0">Orders: #2059</div>
                             </div>
                         </div>
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2057"
+                             data-variant-id="variant-3-1">
                             <div class="variant-checkbox" id="check-variant-3-1" onclick="toggleCheck('variant-3-1')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-3-1">Butter Chicken Spice Mix (70g Jar)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2057</div>
+                                <div class="order-numbers" id="orders-variant-3-1">Orders: #2057</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="black mustard seeds #2060">
+                <div class="product-group" 
+                     data-search="black mustard seeds" 
+                     data-orders="#2060"
+                     data-group-id="4">
                     <div class="group-header" onclick="toggleGroup('group-4')">
                         <div class="group-name">Black Mustard Seeds</div>
                         <div class="group-quantity">1 units</div>
                     </div>
                     <div class="variants" id="group-4" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2060"
+                             data-variant-id="variant-4-0">
                             <div class="variant-checkbox" id="check-variant-4-0" onclick="toggleCheck('variant-4-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-4-0">Black Mustard Seeds - 85g</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2060</div>
+                                <div class="order-numbers" id="orders-variant-4-0">Orders: #2060</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="indian serving bowl copper #2058">
+                <div class="product-group" 
+                     data-search="indian serving bowl copper" 
+                     data-orders="#2058"
+                     data-group-id="5">
                     <div class="group-header" onclick="toggleGroup('group-5')">
                         <div class="group-name">Indian Serving Bowl Copper</div>
                         <div class="group-quantity">1 units</div>
                     </div>
                     <div class="variants" id="group-5" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2058"
+                             data-variant-id="variant-5-0">
                             <div class="variant-checkbox" id="check-variant-5-0" onclick="toggleCheck('variant-5-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-5-0">Indian Serving Bowl Copper (Kadai)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2058</div>
+                                <div class="order-numbers" id="orders-variant-5-0">Orders: #2058</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="indian spice box #2058">
+                <div class="product-group" 
+                     data-search="indian spice box" 
+                     data-orders="#2058"
+                     data-group-id="6">
                     <div class="group-header" onclick="toggleGroup('group-6')">
                         <div class="group-name">Indian Spice Box</div>
                         <div class="group-quantity">1 units</div>
                     </div>
                     <div class="variants" id="group-6" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2058"
+                             data-variant-id="variant-6-0">
                             <div class="variant-checkbox" id="check-variant-6-0" onclick="toggleCheck('variant-6-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-6-0">Indian Spice Box (with 7 Essential Spices)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2058</div>
+                                <div class="order-numbers" id="orders-variant-6-0">Orders: #2058</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="chicken curry masala powder #2057">
+                <div class="product-group" 
+                     data-search="chicken curry masala powder" 
+                     data-orders="#2057"
+                     data-group-id="7">
                     <div class="group-header" onclick="toggleGroup('group-7')">
                         <div class="group-name">Chicken Curry Masala Powder</div>
                         <div class="group-quantity">1 units</div>
                     </div>
                     <div class="variants" id="group-7" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2057"
+                             data-variant-id="variant-7-0">
                             <div class="variant-checkbox" id="check-variant-7-0" onclick="toggleCheck('variant-7-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-7-0">Chicken Curry Masala Powder</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2057</div>
+                                <div class="order-numbers" id="orders-variant-7-0">Orders: #2057</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="biryani spice mix #2057">
+                <div class="product-group" 
+                     data-search="biryani spice mix" 
+                     data-orders="#2057"
+                     data-group-id="8">
                     <div class="group-header" onclick="toggleGroup('group-8')">
                         <div class="group-name">Biryani Spice Mix</div>
                         <div class="group-quantity">1 units</div>
                     </div>
                     <div class="variants" id="group-8" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2057"
+                             data-variant-id="variant-8-0">
                             <div class="variant-checkbox" id="check-variant-8-0" onclick="toggleCheck('variant-8-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-8-0">Biryani Spice Mix (70g Jar)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2057</div>
+                                <div class="order-numbers" id="orders-variant-8-0">Orders: #2057</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="chicken tikka masala spice mix #2057">
+                <div class="product-group" 
+                     data-search="chicken tikka masala spice mix" 
+                     data-orders="#2057"
+                     data-group-id="9">
                     <div class="group-header" onclick="toggleGroup('group-9')">
                         <div class="group-name">Chicken Tikka Masala Spice Mix</div>
                         <div class="group-quantity">1 units</div>
                     </div>
                     <div class="variants" id="group-9" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2057"
+                             data-variant-id="variant-9-0">
                             <div class="variant-checkbox" id="check-variant-9-0" onclick="toggleCheck('variant-9-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-9-0">Chicken Tikka Masala Spice Mix (70g Jar)</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2057</div>
+                                <div class="order-numbers" id="orders-variant-9-0">Orders: #2057</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-group" data-search="cinnamon sticks #2057">
+                <div class="product-group" 
+                     data-search="cinnamon sticks" 
+                     data-orders="#2057"
+                     data-group-id="10">
                     <div class="group-header" onclick="toggleGroup('group-10')">
                         <div class="group-name">Cinnamon Sticks</div>
                         <div class="group-quantity">1 units</div>
                     </div>
                     <div class="variants" id="group-10" style="display: block;">
 
-                        <div class="variant">
+                        <div class="variant" 
+                             data-orders="#2057"
+                             data-variant-id="variant-10-0">
                             <div class="variant-checkbox" id="check-variant-10-0" onclick="toggleCheck('variant-10-0')"></div>
                             <div class="variant-content">
                                 <div class="variant-header">
                                     <div class="variant-name" id="name-variant-10-0">Cinnamon Sticks - 50g</div>
                                     <div class="variant-quantity">1 units</div>
                                 </div>
-                                <div class="order-numbers">Orders: #2057</div>
+                                <div class="order-numbers" id="orders-variant-10-0">Orders: #2057</div>
                             </div>
                         </div>
                     </div>
@@ -572,23 +655,105 @@
         });
 
         function filterProducts() {
-            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const searchValue = document.getElementById('searchInput').value.toLowerCase().trim();
             const productGroups = document.querySelectorAll('.product-group');
-            let visibleCount = 0;
-
+            const searchHint = document.getElementById('searchHint');
+            let visibleGroupCount = 0;
+            let totalVisibleItems = 0;
+            
+            // Check if search value looks like an order number (contains only numbers and possibly #)
+            const cleanOrderSearch = searchValue.replace('#', '');
+            const isOrderSearch = /^\d+$/.test(cleanOrderSearch);
+            
             productGroups.forEach(group => {
-                const searchData = group.getAttribute('data-search');
-                if (searchData.includes(searchValue)) {
+                const groupName = group.getAttribute('data-search');
+                const groupOrders = group.getAttribute('data-orders').split(',');
+                const variants = group.querySelectorAll('.variant');
+                let groupHasVisibleVariants = false;
+                
+                if (searchValue === '') {
+                    // Show everything if search is empty
                     group.style.display = 'block';
-                    visibleCount++;
+                    variants.forEach(variant => {
+                        variant.style.display = 'flex';
+                        // Reset order number highlighting
+                        const orderElement = variant.querySelector('.order-numbers');
+                        const orders = variant.getAttribute('data-orders').split(',');
+                        orderElement.innerHTML = 'Orders: ' + orders.join(', ');
+                    });
+                    visibleGroupCount++;
+                } else if (isOrderSearch) {
+                    // Order number search - show only variants that contain this order
+                    variants.forEach(variant => {
+                        const variantOrders = variant.getAttribute('data-orders').split(',');
+                        const hasOrder = variantOrders.some(order => 
+                            order.replace('#', '').includes(cleanOrderSearch)
+                        );
+                        
+                        if (hasOrder) {
+                            variant.style.display = 'flex';
+                            groupHasVisibleVariants = true;
+                            totalVisibleItems++;
+                            
+                            // Highlight the matching order number
+                            const orderElement = variant.querySelector('.order-numbers');
+                            const highlightedOrders = variantOrders.map(order => {
+                                if (order.replace('#', '').includes(cleanOrderSearch)) {
+                                    return '<span class="highlight">' + order + '</span>';
+                                }
+                                return order;
+                            });
+                            orderElement.innerHTML = 'Orders: ' + highlightedOrders.join(', ');
+                        } else {
+                            variant.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show/hide the group based on whether it has visible variants
+                    if (groupHasVisibleVariants) {
+                        group.style.display = 'block';
+                        // Auto-expand groups with matching orders
+                        const variantsContainer = group.querySelector('.variants');
+                        variantsContainer.style.display = 'block';
+                        visibleGroupCount++;
+                    } else {
+                        group.style.display = 'none';
+                    }
                 } else {
-                    group.style.display = 'none';
+                    // Product name search
+                    if (groupName.includes(searchValue)) {
+                        group.style.display = 'block';
+                        variants.forEach(variant => {
+                            variant.style.display = 'flex';
+                            // Reset order number highlighting
+                            const orderElement = variant.querySelector('.order-numbers');
+                            const orders = variant.getAttribute('data-orders').split(',');
+                            orderElement.innerHTML = 'Orders: ' + orders.join(', ');
+                        });
+                        visibleGroupCount++;
+                    } else {
+                        group.style.display = 'none';
+                    }
                 }
             });
 
+            // Update search hint
+            if (isOrderSearch && searchValue !== '') {
+                if (totalVisibleItems > 0) {
+                    searchHint.textContent = 'Showing ' + totalVisibleItems + ' item(s) for order #' + cleanOrderSearch;
+                    searchHint.classList.add('active');
+                } else {
+                    searchHint.textContent = 'No items found for order #' + cleanOrderSearch;
+                    searchHint.classList.add('active');
+                }
+            } else {
+                searchHint.classList.remove('active');
+            }
+
+            // Show/hide no results message
             const noResults = document.getElementById('noResults');
             const productList = document.getElementById('productList');
-            if (visibleCount === 0 && searchValue !== '') {
+            if (visibleGroupCount === 0 && searchValue !== '') {
                 noResults.style.display = 'block';
             } else {
                 noResults.style.display = 'none';
