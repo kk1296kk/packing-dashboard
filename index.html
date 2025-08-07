@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Packing Dashboard</title>
+    <title>Packing List</title>
     <style>
         * {
             margin: 0;
@@ -12,322 +12,212 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
-            background-color: #ffffff;
-            color: #37352f;
-            line-height: 1.5;
-            font-size: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 24px;
+            padding: 20px;
         }
         
         header {
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #e9e9e7;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #37352f;
-            margin-bottom: 8px;
+            font-size: 2em;
+            margin-bottom: 10px;
         }
         
-        .subtitle {
-            color: #787774;
-            font-size: 14px;
+        .meta-info {
+            opacity: 0.9;
         }
         
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-        
-        .panel {
-            background: #ffffff;
-            border: 1px solid #e9e9e7;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .panel-header {
-            padding: 16px 20px;
-            background: #fafafa;
-            border-bottom: 1px solid #e9e9e7;
-            font-weight: 600;
-            font-size: 16px;
-            color: #37352f;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-bottom: 24px;
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
         }
         
         .stat-card {
-            background: #ffffff;
-            border: 1px solid #e9e9e7;
-            border-radius: 4px;
-            padding: 16px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             text-align: center;
+            flex: 1;
         }
         
         .stat-number {
-            font-size: 28px;
-            font-weight: 700;
-            color: #37352f;
-            line-height: 1;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #3498db;
         }
         
         .stat-label {
-            font-size: 12px;
-            color: #787774;
-            margin-top: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .search-box {
-            padding: 16px 20px;
-            border-bottom: 1px solid #e9e9e7;
-        }
-        
-        #searchInput {
-            width: 100%;
-            padding: 8px 12px;
-            font-size: 14px;
-            border: 1px solid #e9e9e7;
-            border-radius: 4px;
-            background: #fafafa;
-            transition: all 0.2s;
-        }
-        
-        #searchInput:focus {
-            outline: none;
-            border-color: #37352f;
-            background: #ffffff;
-        }
-        
-        .product-list {
-            max-height: 600px;
-            overflow-y: auto;
+            color: #666;
+            margin-top: 5px;
         }
         
         .product-group {
-            border-bottom: 1px solid #e9e9e7;
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
         
         .group-header {
-            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: background 0.1s;
+            transition: background-color 0.3s;
         }
         
         .group-header:hover {
-            background: #fafafa;
+            background-color: #2980b9;
         }
         
         .group-name {
-            font-weight: 500;
-            color: #37352f;
-        }
-        
-        .group-quantity {
-            font-size: 14px;
-            color: #787774;
-            background: #f1f1ef;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        
-        .variants {
-            background: #fafafa;
-        }
-        
-        .variant {
-            padding: 12px 20px 12px 20px;
-            border-top: 1px solid #e9e9e7;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        
-        .variant-checkbox {
-            margin-top: 2px;
-            width: 18px;
-            height: 18px;
-            border: 2px solid #e9e9e7;
-            border-radius: 4px;
-            cursor: pointer;
-            flex-shrink: 0;
-            position: relative;
-            transition: all 0.2s;
-        }
-        
-        .variant-checkbox:hover {
-            border-color: #37352f;
-        }
-        
-        .variant-checkbox.checked {
-            background: #37352f;
-            border-color: #37352f;
-        }
-        
-        .variant-checkbox.checked::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 12px;
+            font-size: 1.3em;
             font-weight: bold;
         }
         
-        .variant-content {
-            flex: 1;
+        .group-quantity {
+            font-size: 1.5em;
+            font-weight: bold;
+            background-color: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .variants {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .variant {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .variant:last-child {
+            margin-bottom: 0;
         }
         
         .variant-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 10px;
         }
         
         .variant-name {
-            font-size: 14px;
-            color: #37352f;
-        }
-        
-        .variant-name.checked {
-            text-decoration: line-through;
-            color: #787774;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1em;
         }
         
         .variant-quantity {
-            font-size: 14px;
-            color: #eb5757;
-            font-weight: 500;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e74c3c;
         }
         
         .order-numbers {
-            font-size: 12px;
-            color: #787774;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
         }
         
-        /* Popular items styles */
-        .popular-list {
-            padding: 20px;
-            max-height: 600px;
-            overflow-y: auto;
+        .search-box {
+            margin-bottom: 30px;
         }
         
-        .popular-item {
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        #searchInput {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s;
         }
         
-        .popular-rank {
-            width: 24px;
-            height: 24px;
-            background: #f1f1ef;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: #787774;
-            flex-shrink: 0;
-        }
-        
-        .popular-item-info {
-            flex: 1;
-        }
-        
-        .popular-item-name {
-            font-size: 14px;
-            color: #37352f;
-            margin-bottom: 2px;
-        }
-        
-        .popular-item-bar-container {
-            height: 20px;
-            background: #f1f1ef;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .popular-item-bar {
-            height: 100%;
-            background: #37352f;
-            transition: width 0.3s ease;
-        }
-        
-        .popular-item-quantity {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 11px;
-            color: #787774;
-            font-weight: 500;
+        #searchInput:focus {
+            outline: none;
+            border-color: #3498db;
         }
         
         .no-results {
             text-align: center;
             padding: 40px;
-            color: #787774;
-            font-size: 14px;
-        }
-        
-        @media (max-width: 1024px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
+            color: #666;
+            font-size: 1.2em;
         }
         
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .container {
+                padding: 10px;
             }
             
-            .container {
-                padding: 16px;
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .group-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .variant-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
             }
         }
         
         @media print {
+            body {
+                background: white;
+            }
+            
             .search-box {
                 display: none;
             }
             
-            .dashboard-grid {
-                grid-template-columns: 1fr;
+            .product-group {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
             }
             
-            .variant-checkbox {
-                display: none;
+            header {
+                background-color: white;
+                color: black;
+                border: 2px solid #333;
             }
             
-            .variant {
-                padding-left: 40px;
+            .group-header {
+                background-color: #f0f0f0;
+                color: black;
             }
         }
     </style>
@@ -335,396 +225,271 @@
 <body>
     <div class="container">
         <header>
-            <h1>Packing Dashboard</h1>
-            <div class="subtitle">Last updated: Aug 7, 2025, 06:00 PM</div>
+            <h1>📦 Packing List</h1>
+            <div class="meta-info">
+                <div>Last Updated: Aug 7, 2025, 04:53 AM</div>
+            </div>
         </header>
         
-        <div class="stats-grid">
+        <div class="stats">
             <div class="stat-card">
                 <div class="stat-number">4</div>
                 <div class="stat-label">Unfulfilled Orders</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">19</div>
-                <div class="stat-label">Items to Pack</div>
+                <div class="stat-number">11</div>
+                <div class="stat-label">Product Groups</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">4</div>
-                <div class="stat-label">Total Orders (30d)</div>
+                <div class="stat-number">19</div>
+                <div class="stat-label">Total Items to Pack</div>
             </div>
         </div>
         
-        <div class="dashboard-grid">
-            <!-- Packing List Panel -->
-            <div class="panel">
-                <div class="panel-header">📦 Packing List</div>
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search products or orders..." onkeyup="filterProducts()">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search products or order numbers..." onkeyup="filterProducts()">
+        </div>
+        
+        <div id="productList">
+
+            <div class="product-group" data-search="kashmiri chilli powder (hot) free sample #2060 #2059 #2058 #2057">
+                <div class="group-header" onclick="toggleGroup('group-0')">
+                    <div class="group-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div>
+                    <div class="group-quantity">4 units</div>
                 </div>
-                <div class="product-list" id="productList">
+                <div class="variants" id="group-0" style="display: block;">
 
-                    <div class="product-group" data-search="kashmiri chilli powder (hot) free sample #2060 #2059 #2058 #2057">
-                        <div class="group-header" onclick="toggleGroup('group-0')">
-                            <div class="group-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div>
-                            <div class="group-quantity">4 units</div>
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE - 50g</div>
+                            <div class="variant-quantity">4 units</div>
                         </div>
-                        <div class="variants" id="group-0" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-0-0" onclick="toggleCheck('variant-0-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-0-0">Kashmiri Chilli Powder (Hot) FREE SAMPLE - 50g</div>
-                                        <div class="variant-quantity">4 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2060, #2059, #2058, #2057</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="kashmiri chilli powder #2060 #2059">
-                        <div class="group-header" onclick="toggleGroup('group-1')">
-                            <div class="group-name">Kashmiri Chilli Powder</div>
-                            <div class="group-quantity">3 units</div>
-                        </div>
-                        <div class="variants" id="group-1" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-1-0" onclick="toggleCheck('variant-1-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-1-0">Kashmiri Chilli Powder - 50g (jar)</div>
-                                        <div class="variant-quantity">2 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2060</div>
-                                </div>
-                            </div>
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-1-1" onclick="toggleCheck('variant-1-1')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-1-1">Kashmiri Chilli Powder - 100g (pouch)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2059</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="tandoori chicken spice mix #2059 #2057 #2057">
-                        <div class="group-header" onclick="toggleGroup('group-2')">
-                            <div class="group-name">Tandoori Chicken Spice Mix</div>
-                            <div class="group-quantity">3 units</div>
-                        </div>
-                        <div class="variants" id="group-2" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-2-0" onclick="toggleCheck('variant-2-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-2-0">Tandoori Chicken Spice Mix - 100g (pouch)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2059</div>
-                                </div>
-                            </div>
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-2-1" onclick="toggleCheck('variant-2-1')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-2-1">Tandoori Chicken Spice Mix (60g Jar)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2057</div>
-                                </div>
-                            </div>
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-2-2" onclick="toggleCheck('variant-2-2')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-2-2">Tandoori Chicken Spice Mix - 60g (jar)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2057</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="butter chicken spice mix #2059 #2057">
-                        <div class="group-header" onclick="toggleGroup('group-3')">
-                            <div class="group-name">Butter Chicken Spice Mix</div>
-                            <div class="group-quantity">2 units</div>
-                        </div>
-                        <div class="variants" id="group-3" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-3-0" onclick="toggleCheck('variant-3-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-3-0">Butter Chicken Spice Mix - 100g (pouch)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2059</div>
-                                </div>
-                            </div>
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-3-1" onclick="toggleCheck('variant-3-1')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-3-1">Butter Chicken Spice Mix (70g Jar)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2057</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="black mustard seeds #2060">
-                        <div class="group-header" onclick="toggleGroup('group-4')">
-                            <div class="group-name">Black Mustard Seeds</div>
-                            <div class="group-quantity">1 units</div>
-                        </div>
-                        <div class="variants" id="group-4" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-4-0" onclick="toggleCheck('variant-4-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-4-0">Black Mustard Seeds - 85g</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2060</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="indian serving bowl copper #2058">
-                        <div class="group-header" onclick="toggleGroup('group-5')">
-                            <div class="group-name">Indian Serving Bowl Copper</div>
-                            <div class="group-quantity">1 units</div>
-                        </div>
-                        <div class="variants" id="group-5" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-5-0" onclick="toggleCheck('variant-5-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-5-0">Indian Serving Bowl Copper (Kadai)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2058</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="indian spice box #2058">
-                        <div class="group-header" onclick="toggleGroup('group-6')">
-                            <div class="group-name">Indian Spice Box</div>
-                            <div class="group-quantity">1 units</div>
-                        </div>
-                        <div class="variants" id="group-6" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-6-0" onclick="toggleCheck('variant-6-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-6-0">Indian Spice Box (with 7 Essential Spices)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2058</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="chicken curry masala powder #2057">
-                        <div class="group-header" onclick="toggleGroup('group-7')">
-                            <div class="group-name">Chicken Curry Masala Powder</div>
-                            <div class="group-quantity">1 units</div>
-                        </div>
-                        <div class="variants" id="group-7" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-7-0" onclick="toggleCheck('variant-7-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-7-0">Chicken Curry Masala Powder</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2057</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="biryani spice mix #2057">
-                        <div class="group-header" onclick="toggleGroup('group-8')">
-                            <div class="group-name">Biryani Spice Mix</div>
-                            <div class="group-quantity">1 units</div>
-                        </div>
-                        <div class="variants" id="group-8" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-8-0" onclick="toggleCheck('variant-8-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-8-0">Biryani Spice Mix (70g Jar)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2057</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="chicken tikka masala spice mix #2057">
-                        <div class="group-header" onclick="toggleGroup('group-9')">
-                            <div class="group-name">Chicken Tikka Masala Spice Mix</div>
-                            <div class="group-quantity">1 units</div>
-                        </div>
-                        <div class="variants" id="group-9" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-9-0" onclick="toggleCheck('variant-9-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-9-0">Chicken Tikka Masala Spice Mix (70g Jar)</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2057</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-group" data-search="cinnamon sticks #2057">
-                        <div class="group-header" onclick="toggleGroup('group-10')">
-                            <div class="group-name">Cinnamon Sticks</div>
-                            <div class="group-quantity">1 units</div>
-                        </div>
-                        <div class="variants" id="group-10" style="display: block;">
-
-                            <div class="variant">
-                                <div class="variant-checkbox" id="check-variant-10-0" onclick="toggleCheck('variant-10-0')"></div>
-                                <div class="variant-content">
-                                    <div class="variant-header">
-                                        <div class="variant-name" id="name-variant-10-0">Cinnamon Sticks - 50g</div>
-                                        <div class="variant-quantity">1 units</div>
-                                    </div>
-                                    <div class="order-numbers">Orders: #2057</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="noResults" class="no-results" style="display: none;">
-                    No products found
-                </div>
-            </div>
-            
-            <!-- Popular Items Panel -->
-            <div class="panel">
-                <div class="panel-header">📈 Top Products (30 days)</div>
-                <div class="popular-list">
-
-                    <div class="popular-item">
-                        <div class="popular-rank">1</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 100%"></div>
-                                <div class="popular-item-quantity">4</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">2</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Kashmiri Chilli Powder</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 75%"></div>
-                                <div class="popular-item-quantity">3</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">3</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Tandoori Chicken Spice Mix</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 50%"></div>
-                                <div class="popular-item-quantity">2</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">4</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Black Mustard Seeds</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 25%"></div>
-                                <div class="popular-item-quantity">1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">5</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Butter Chicken Spice Mix</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 25%"></div>
-                                <div class="popular-item-quantity">1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">6</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Indian Serving Bowl Copper</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 25%"></div>
-                                <div class="popular-item-quantity">1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">7</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Indian Spice Box</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 25%"></div>
-                                <div class="popular-item-quantity">1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">8</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Chicken Curry Masala Powder</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 25%"></div>
-                                <div class="popular-item-quantity">1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">9</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">4-Pack: Chicken Curry Spice Mix Set</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 25%"></div>
-                                <div class="popular-item-quantity">1</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="popular-item">
-                        <div class="popular-rank">10</div>
-                        <div class="popular-item-info">
-                            <div class="popular-item-name">Cinnamon Sticks</div>
-                            <div class="popular-item-bar-container">
-                                <div class="popular-item-bar" style="width: 25%"></div>
-                                <div class="popular-item-quantity">1</div>
-                            </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2060, #2059, #2058, #2057
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="product-group" data-search="kashmiri chilli powder #2060 #2059">
+                <div class="group-header" onclick="toggleGroup('group-1')">
+                    <div class="group-name">Kashmiri Chilli Powder</div>
+                    <div class="group-quantity">3 units</div>
+                </div>
+                <div class="variants" id="group-1" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Kashmiri Chilli Powder - 50g (jar) - 50g (jar)</div>
+                            <div class="variant-quantity">2 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2060
+                        </div>
+                    </div>
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Kashmiri Chilli Powder - 100g (pouch) - 100g (pouch)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2059
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="tandoori chicken spice mix #2059 #2057 #2057">
+                <div class="group-header" onclick="toggleGroup('group-2')">
+                    <div class="group-name">Tandoori Chicken Spice Mix</div>
+                    <div class="group-quantity">3 units</div>
+                </div>
+                <div class="variants" id="group-2" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Tandoori Chicken Spice Mix - 100g (pouch) - 100g (pouch)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2059
+                        </div>
+                    </div>
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Tandoori Chicken Spice Mix (60g Jar) - 60g Jar</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Tandoori Chicken Spice Mix - 60g (jar) - 60g (jar)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="butter chicken spice mix #2059 #2057">
+                <div class="group-header" onclick="toggleGroup('group-3')">
+                    <div class="group-name">Butter Chicken Spice Mix</div>
+                    <div class="group-quantity">2 units</div>
+                </div>
+                <div class="variants" id="group-3" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Butter Chicken Spice Mix - 100g (pouch) - 100g (pouch)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2059
+                        </div>
+                    </div>
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Butter Chicken Spice Mix (70g Jar) - 70g Jar</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="black mustard seeds #2060">
+                <div class="group-header" onclick="toggleGroup('group-4')">
+                    <div class="group-name">Black Mustard Seeds</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-4" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Black Mustard Seeds - 85g - 85g</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2060
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="indian serving bowl copper #2058">
+                <div class="group-header" onclick="toggleGroup('group-5')">
+                    <div class="group-name">Indian Serving Bowl Copper</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-5" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Indian Serving Bowl Copper (Kadai)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2058
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="indian spice box #2058">
+                <div class="group-header" onclick="toggleGroup('group-6')">
+                    <div class="group-name">Indian Spice Box</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-6" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Indian Spice Box (with 7 Essential Spices)</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2058
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="chicken curry masala powder #2057">
+                <div class="group-header" onclick="toggleGroup('group-7')">
+                    <div class="group-name">Chicken Curry Masala Powder</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-7" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Chicken Curry Masala Powder</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="biryani spice mix #2057">
+                <div class="group-header" onclick="toggleGroup('group-8')">
+                    <div class="group-name">Biryani Spice Mix</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-8" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Biryani Spice Mix (70g Jar) - 70g Jar</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="chicken tikka masala spice mix #2057">
+                <div class="group-header" onclick="toggleGroup('group-9')">
+                    <div class="group-name">Chicken Tikka Masala Spice Mix</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-9" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Chicken Tikka Masala Spice Mix (70g Jar) - 70g Jar</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-group" data-search="cinnamon sticks #2057">
+                <div class="group-header" onclick="toggleGroup('group-10')">
+                    <div class="group-name">Cinnamon Sticks</div>
+                    <div class="group-quantity">1 units</div>
+                </div>
+                <div class="variants" id="group-10" style="display: block;">
+
+                    <div class="variant">
+                        <div class="variant-header">
+                            <div class="variant-name">Cinnamon Sticks - 50g - 50g</div>
+                            <div class="variant-quantity">1 units</div>
+                        </div>
+                        <div class="order-numbers">
+                            <strong>Orders:</strong> #2057
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="noResults" class="no-results" style="display: none;">
+            No products found matching your search.
         </div>
     </div>
     
@@ -737,31 +502,6 @@
                 element.style.display = 'none';
             }
         }
-        
-        function toggleCheck(variantId) {
-            const checkbox = document.getElementById('check-' + variantId);
-            const name = document.getElementById('name-' + variantId);
-            
-            checkbox.classList.toggle('checked');
-            name.classList.toggle('checked');
-            
-            // Store state in localStorage so it persists
-            const isChecked = checkbox.classList.contains('checked');
-            localStorage.setItem('pack-' + variantId, isChecked);
-        }
-        
-        // Restore checkbox states on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkboxes = document.querySelectorAll('.variant-checkbox');
-            checkboxes.forEach(checkbox => {
-                const variantId = checkbox.id.replace('check-', '');
-                const isChecked = localStorage.getItem('pack-' + variantId) === 'true';
-                if (isChecked) {
-                    checkbox.classList.add('checked');
-                    document.getElementById('name-' + variantId).classList.add('checked');
-                }
-            });
-        });
         
         function filterProducts() {
             const searchValue = document.getElementById('searchInput').value.toLowerCase();
@@ -782,8 +522,10 @@
             const productList = document.getElementById('productList');
             if (visibleCount === 0 && searchValue !== '') {
                 noResults.style.display = 'block';
+                productList.style.display = 'none';
             } else {
                 noResults.style.display = 'none';
+                productList.style.display = 'block';
             }
         }
     </script>
