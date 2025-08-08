@@ -20,29 +20,9 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 24px;
-        }
-
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 24px;
-            margin-top: 24px;
-        }
-
-        .left-panel {
-            min-width: 0;
-        }
-
-        .right-panel {
-            position: sticky;
-            top: 24px;
-            height: fit-content;
-            max-height: calc(100vh - 48px);
-            display: flex;
-            flex-direction: column;
         }
 
         header {
@@ -128,17 +108,6 @@
             outline: none;
             border-color: #37352f;
             background: #ffffff;
-        }
-
-        .search-hint {
-            font-size: 12px;
-            color: #787774;
-            margin-top: 8px;
-            display: none;
-        }
-
-        .search-hint.active {
-            display: block;
         }
 
         .product-list {
@@ -252,198 +221,11 @@
             color: #787774;
         }
 
-        .order-numbers .highlight {
-            background-color: #ffeb3b;
-            padding: 1px 3px;
-            border-radius: 2px;
-            color: #37352f;
-            font-weight: 500;
-        }
-
         .no-results {
             text-align: center;
             padding: 40px;
             color: #787774;
             font-size: 14px;
-        }
-
-        /* Order Panel Styles */
-        .order-list {
-            max-height: 300px;
-            overflow-y: auto;
-            border-bottom: 1px solid #e9e9e7;
-        }
-
-        .order-item {
-            padding: 12px 20px;
-            border-bottom: 1px solid #e9e9e7;
-            cursor: pointer;
-            transition: background 0.1s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .order-item:hover {
-            background: #fafafa;
-        }
-
-        .order-item.active {
-            background: #f1f1ef;
-            border-left: 3px solid #37352f;
-            padding-left: 17px;
-        }
-
-        .order-item-number {
-            font-weight: 500;
-            color: #37352f;
-        }
-
-        .order-item-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            font-size: 12px;
-            color: #787774;
-        }
-
-        .order-details {
-            padding: 20px;
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .order-details-empty {
-            text-align: center;
-            color: #787774;
-            padding: 40px 20px;
-            font-size: 14px;
-        }
-
-        .order-header-info {
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #e9e9e7;
-        }
-
-        .order-number-large {
-            font-size: 24px;
-            font-weight: 700;
-            color: #37352f;
-            margin-bottom: 8px;
-        }
-
-        .order-meta {
-            font-size: 12px;
-            color: #787774;
-        }
-
-        .info-section {
-            margin-bottom: 20px;
-        }
-
-        .info-section-title {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #787774;
-            margin-bottom: 8px;
-        }
-
-        .info-content {
-            font-size: 14px;
-            color: #37352f;
-            line-height: 1.6;
-        }
-
-        .order-items-list {
-            margin-top: 8px;
-        }
-
-        .order-item-detail {
-            padding: 8px 0;
-            border-bottom: 1px solid #f1f1ef;
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-        }
-
-        .order-item-detail:last-child {
-            border-bottom: none;
-        }
-
-        .item-name-detail {
-            flex: 1;
-            font-size: 14px;
-            color: #37352f;
-        }
-
-        .item-variant {
-            font-size: 12px;
-            color: #787774;
-            margin-top: 2px;
-        }
-
-        .item-quantity-detail {
-            font-size: 14px;
-            color: #eb5757;
-            font-weight: 500;
-            margin-left: 16px;
-        }
-
-        .order-note {
-            background: #fafafa;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #37352f;
-            border-left: 3px solid #ffeb3b;
-        }
-
-        .order-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 8px;
-        }
-
-        .tag {
-            background: #f1f1ef;
-            color: #37352f;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        .print-button {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            padding: 6px 12px;
-            background: #37352f;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .print-button:hover {
-            background: #000;
-        }
-
-        @media (max-width: 1200px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .right-panel {
-                position: relative;
-                top: 0;
-                max-height: none;
-            }
         }
 
         @media (max-width: 768px) {
@@ -468,50 +250,6 @@
             .variant {
                 padding-left: 40px;
             }
-
-            .right-panel {
-                display: none;
-            }
-
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media print and (max-width: 999999px) {
-            .print-mode .left-panel {
-                display: none !important;
-            }
-
-            .print-mode .right-panel {
-                display: block !important;
-                position: relative !important;
-                max-height: none !important;
-            }
-
-            .print-mode .main-layout {
-                grid-template-columns: 1fr !important;
-            }
-
-            .print-mode .stats-grid {
-                display: none !important;
-            }
-
-            .print-mode header {
-                display: none !important;
-            }
-
-            .print-mode .print-button {
-                display: none !important;
-            }
-
-            .print-mode .order-list {
-                display: none !important;
-            }
-
-            .print-mode .panel-header {
-                display: none !important;
-            }
         }
     </style>
 </head>
@@ -519,7 +257,7 @@
     <div class="container">
         <header>
             <h1>Packing Dashboard</h1>
-            <div class="subtitle">Last updated: Aug 8, 2025, 10:05 AM</div>
+            <div class="subtitle">Last updated: Aug 8, 2025, 02:54 PM</div>
         </header>
 
         <div class="stats-grid">
@@ -528,7 +266,7 @@
                 <div class="stat-label">Unfulfilled Orders</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">3</div>
+                <div class="stat-number">8</div>
                 <div class="stat-label">Items to Pack</div>
             </div>
             <div class="stat-card">
@@ -537,87 +275,173 @@
             </div>
         </div>
 
-        <div class="main-layout">
-            <div class="left-panel">
-                <div class="panel">
-                    <div class="panel-header">📦 Packing List</div>
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search products or order number (e.g., 2057)..." onkeyup="filterProducts()">
-                        <div id="searchHint" class="search-hint"></div>
-                    </div>
-                    <div class="product-list" id="productList">
-                        <div class="product-group" data-search="indian serving bowl copper" data-orders="#2058" data-group-id="0"><div class="group-header" onclick="toggleGroup('group-0')"><div class="group-name">Indian Serving Bowl Copper</div><div class="group-quantity">1 units</div></div><div class="variants" id="group-0" style="display: block;"><div class="variant" data-orders="#2058" data-variant-id="variant-0-0"><div class="variant-checkbox" id="check-variant-0-0" onclick="toggleCheck('variant-0-0')"></div><div class="variant-content"><div class="variant-header"><div class="variant-name" id="name-variant-0-0">Indian Serving Bowl Copper (Kadai)</div><div class="variant-quantity">1 units</div></div><div class="order-numbers" id="orders-variant-0-0">Orders: #2058</div></div></div></div></div><div class="product-group" data-search="kashmiri chilli powder (hot) free sample" data-orders="#2058" data-group-id="1"><div class="group-header" onclick="toggleGroup('group-1')"><div class="group-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div><div class="group-quantity">1 units</div></div><div class="variants" id="group-1" style="display: block;"><div class="variant" data-orders="#2058" data-variant-id="variant-1-0"><div class="variant-checkbox" id="check-variant-1-0" onclick="toggleCheck('variant-1-0')"></div><div class="variant-content"><div class="variant-header"><div class="variant-name" id="name-variant-1-0">Kashmiri Chilli Powder (Hot) FREE SAMPLE - 50g</div><div class="variant-quantity">1 units</div></div><div class="order-numbers" id="orders-variant-1-0">Orders: #2058</div></div></div></div></div><div class="product-group" data-search="indian spice box" data-orders="#2058" data-group-id="2"><div class="group-header" onclick="toggleGroup('group-2')"><div class="group-name">Indian Spice Box</div><div class="group-quantity">1 units</div></div><div class="variants" id="group-2" style="display: block;"><div class="variant" data-orders="#2058" data-variant-id="variant-2-0"><div class="variant-checkbox" id="check-variant-2-0" onclick="toggleCheck('variant-2-0')"></div><div class="variant-content"><div class="variant-header"><div class="variant-name" id="name-variant-2-0">Indian Spice Box (with 7 Essential Spices)</div><div class="variant-quantity">1 units</div></div><div class="order-numbers" id="orders-variant-2-0">Orders: #2058</div></div></div></div></div>
-                    </div>
-                    <div id="noResults" class="no-results" style="display: none;">
-                        No products found
-                    </div>
-                </div>
+        <div class="panel">
+            <div class="panel-header">📦 Packing List</div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search products or orders..." onkeyup="filterProducts()">
             </div>
+            <div class="product-list" id="productList">
 
-            <div class="right-panel">
-                <div class="panel">
-                    <div class="panel-header" style="position: relative;">
-                        📋 Order Details
-                        <button class="print-button" onclick="printOrder()" id="printBtn" style="display: none;">Print Order</button>
+                <div class="product-group" data-search="kashmiri chilli powder (hot) free sample #2062">
+                    <div class="group-header" onclick="toggleGroup('group-0')">
+                        <div class="group-name">Kashmiri Chilli Powder (Hot) FREE SAMPLE</div>
+                        <div class="group-quantity">1 units</div>
                     </div>
-                    <div class="order-list">
-                        <div class="order-item" onclick="showOrderDetails('#2058')" data-order-number="#2058"><div><div class="order-item-number">#2058</div><div style="font-size: 12px; color: #787774; margin-top: 2px;">Jyotika Reddy</div></div><div class="order-item-info"><div>Aug 5</div><div>3 items</div></div></div>
-                    </div>
-                    <div class="order-details" id="orderDetails">
-                        <div class="order-details-empty">
-                            Select an order to view details
+                    <div class="variants" id="group-0" style="display: block;">
+
+                        <div class="variant">
+                            <div class="variant-checkbox" id="check-variant-0-0" onclick="toggleCheck('variant-0-0')"></div>
+                            <div class="variant-content">
+                                <div class="variant-header">
+                                    <div class="variant-name" id="name-variant-0-0">Kashmiri Chilli Powder (Hot) FREE SAMPLE - 50g</div>
+                                    <div class="variant-quantity">1 units</div>
+                                </div>
+                                <div class="order-numbers">Orders: #2062</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="product-group" data-search="turmeric powder #2062">
+                    <div class="group-header" onclick="toggleGroup('group-1')">
+                        <div class="group-name">Turmeric Powder</div>
+                        <div class="group-quantity">1 units</div>
+                    </div>
+                    <div class="variants" id="group-1" style="display: block;">
+
+                        <div class="variant">
+                            <div class="variant-checkbox" id="check-variant-1-0" onclick="toggleCheck('variant-1-0')"></div>
+                            <div class="variant-content">
+                                <div class="variant-header">
+                                    <div class="variant-name" id="name-variant-1-0">Turmeric Powder - 100g (pouch)</div>
+                                    <div class="variant-quantity">1 units</div>
+                                </div>
+                                <div class="order-numbers">Orders: #2062</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-group" data-search="masala chai (tea spice) #2062">
+                    <div class="group-header" onclick="toggleGroup('group-2')">
+                        <div class="group-name">Masala Chai (Tea Spice)</div>
+                        <div class="group-quantity">1 units</div>
+                    </div>
+                    <div class="variants" id="group-2" style="display: block;">
+
+                        <div class="variant">
+                            <div class="variant-checkbox" id="check-variant-2-0" onclick="toggleCheck('variant-2-0')"></div>
+                            <div class="variant-content">
+                                <div class="variant-header">
+                                    <div class="variant-name" id="name-variant-2-0">Masala Chai (Tea Spice) - 50g (jar)</div>
+                                    <div class="variant-quantity">1 units</div>
+                                </div>
+                                <div class="order-numbers">Orders: #2062</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-group" data-search="kashmiri chilli powder #2062">
+                    <div class="group-header" onclick="toggleGroup('group-3')">
+                        <div class="group-name">Kashmiri Chilli Powder</div>
+                        <div class="group-quantity">1 units</div>
+                    </div>
+                    <div class="variants" id="group-3" style="display: block;">
+
+                        <div class="variant">
+                            <div class="variant-checkbox" id="check-variant-3-0" onclick="toggleCheck('variant-3-0')"></div>
+                            <div class="variant-content">
+                                <div class="variant-header">
+                                    <div class="variant-name" id="name-variant-3-0">Kashmiri Chilli Powder - 250g (pouch)</div>
+                                    <div class="variant-quantity">1 units</div>
+                                </div>
+                                <div class="order-numbers">Orders: #2062</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-group" data-search="garlic powder #2062">
+                    <div class="group-header" onclick="toggleGroup('group-4')">
+                        <div class="group-name">Garlic Powder</div>
+                        <div class="group-quantity">1 units</div>
+                    </div>
+                    <div class="variants" id="group-4" style="display: block;">
+
+                        <div class="variant">
+                            <div class="variant-checkbox" id="check-variant-4-0" onclick="toggleCheck('variant-4-0')"></div>
+                            <div class="variant-content">
+                                <div class="variant-header">
+                                    <div class="variant-name" id="name-variant-4-0">Garlic Powder - 100g (pouch)</div>
+                                    <div class="variant-quantity">1 units</div>
+                                </div>
+                                <div class="order-numbers">Orders: #2062</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-group" data-search="dhana jeera (coriander cumin) #2062">
+                    <div class="group-header" onclick="toggleGroup('group-5')">
+                        <div class="group-name">Dhana Jeera (Coriander Cumin)</div>
+                        <div class="group-quantity">1 units</div>
+                    </div>
+                    <div class="variants" id="group-5" style="display: block;">
+
+                        <div class="variant">
+                            <div class="variant-checkbox" id="check-variant-5-0" onclick="toggleCheck('variant-5-0')"></div>
+                            <div class="variant-content">
+                                <div class="variant-header">
+                                    <div class="variant-name" id="name-variant-5-0">Dhana Jeera (Coriander Cumin) - 250g (pouch)</div>
+                                    <div class="variant-quantity">1 units</div>
+                                </div>
+                                <div class="order-numbers">Orders: #2062</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-group" data-search="black pepper powder #2062">
+                    <div class="group-header" onclick="toggleGroup('group-6')">
+                        <div class="group-name">Black Pepper Powder</div>
+                        <div class="group-quantity">1 units</div>
+                    </div>
+                    <div class="variants" id="group-6" style="display: block;">
+
+                        <div class="variant">
+                            <div class="variant-checkbox" id="check-variant-6-0" onclick="toggleCheck('variant-6-0')"></div>
+                            <div class="variant-content">
+                                <div class="variant-header">
+                                    <div class="variant-name" id="name-variant-6-0">Black Pepper Powder - 250g (pouch)</div>
+                                    <div class="variant-quantity">1 units</div>
+                                </div>
+                                <div class="order-numbers">Orders: #2062</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-group" data-search="garam masala powder #2062">
+                    <div class="group-header" onclick="toggleGroup('group-7')">
+                        <div class="group-name">Garam Masala Powder</div>
+                        <div class="group-quantity">1 units</div>
+                    </div>
+                    <div class="variants" id="group-7" style="display: block;">
+
+                        <div class="variant">
+                            <div class="variant-checkbox" id="check-variant-7-0" onclick="toggleCheck('variant-7-0')"></div>
+                            <div class="variant-content">
+                                <div class="variant-header">
+                                    <div class="variant-name" id="name-variant-7-0">Garam Masala Powder - 250g (pouch)</div>
+                                    <div class="variant-quantity">1 units</div>
+                                </div>
+                                <div class="order-numbers">Orders: #2062</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="noResults" class="no-results" style="display: none;">
+                No products found
             </div>
         </div>
     </div>
 
     <script>
-        const orderData = {
-  "#2058": {
-    "number": "#2058",
-    "createdAt": "2025-08-06T09:40:43+10:00",
-    "customer": {
-      "name": "Jyotika Reddy",
-      "email": "jyotika_reddy@y7mail.com",
-      "phone": ""
-    },
-    "shipping": {
-      "address1": "50 May Terrace",
-      "address2": "",
-      "city": "Ottoway",
-      "province": "South Australia",
-      "zip": "5013",
-      "country": "Australia"
-    },
-    "items": [
-      {
-        "name": "Indian Serving Bowl Copper (Kadai)",
-        "variant": "",
-        "quantity": 1,
-        "price": "29.95"
-      },
-      {
-        "name": "Kashmiri Chilli Powder (Hot) FREE SAMPLE - 50g",
-        "variant": "",
-        "quantity": 1,
-        "price": "0.00"
-      },
-      {
-        "name": "Indian Spice Box (with 7 Essential Spices)",
-        "variant": "",
-        "quantity": 1,
-        "price": "62.95"
-      }
-    ],
-    "total": "100.61",
-    "note": "",
-    "tags": ""
-  }
-};
-        let currentSelectedOrder = null;
-
         function toggleGroup(groupId) {
             const element = document.getElementById(groupId);
             if (element.style.display === 'none') {
@@ -648,246 +472,29 @@
                     document.getElementById('name-' + variantId).classList.add('checked');
                 }
             });
-
-            // Auto-select first order if available
-            if (Object.keys(orderData).length > 0) {
-                const firstOrder = document.querySelector('.order-item');
-                if (firstOrder) {
-                    const orderNumber = firstOrder.getAttribute('data-order-number');
-                    if (orderNumber) {
-                        showOrderDetails(orderNumber);
-                    }
-                }
-            }
         });
 
         function filterProducts() {
-            const searchValue = document.getElementById('searchInput').value.toLowerCase().trim();
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
             const productGroups = document.querySelectorAll('.product-group');
-            const searchHint = document.getElementById('searchHint');
-            let visibleGroupCount = 0;
-            let totalVisibleItems = 0;
-            
-            // Check if search value looks like an order number (contains only numbers and possibly #)
-            const cleanOrderSearch = searchValue.replace('#', '');
-            const isOrderSearch = /^\d+$/.test(cleanOrderSearch);
-            
+            let visibleCount = 0;
+
             productGroups.forEach(group => {
-                const groupName = group.getAttribute('data-search');
-                const groupOrders = group.getAttribute('data-orders').split(',');
-                const variants = group.querySelectorAll('.variant');
-                let groupHasVisibleVariants = false;
-                
-                if (searchValue === '') {
-                    // Show everything if search is empty
+                const searchData = group.getAttribute('data-search');
+                if (searchData.includes(searchValue)) {
                     group.style.display = 'block';
-                    variants.forEach(variant => {
-                        variant.style.display = 'flex';
-                        // Reset order number highlighting
-                        const orderElement = variant.querySelector('.order-numbers');
-                        const orders = variant.getAttribute('data-orders').split(',');
-                        orderElement.innerHTML = 'Orders: ' + orders.join(', ');
-                    });
-                    visibleGroupCount++;
-                } else if (isOrderSearch) {
-                    // Order number search - show only variants that contain this order
-                    variants.forEach(variant => {
-                        const variantOrders = variant.getAttribute('data-orders').split(',');
-                        const hasOrder = variantOrders.some(order => 
-                            order.replace('#', '').includes(cleanOrderSearch)
-                        );
-                        
-                        if (hasOrder) {
-                            variant.style.display = 'flex';
-                            groupHasVisibleVariants = true;
-                            totalVisibleItems++;
-                            
-                            // Highlight the matching order number
-                            const orderElement = variant.querySelector('.order-numbers');
-                            const highlightedOrders = variantOrders.map(order => {
-                                if (order.replace('#', '').includes(cleanOrderSearch)) {
-                                    return '<span class="highlight">' + order + '</span>';
-                                }
-                                return order;
-                            });
-                            orderElement.innerHTML = 'Orders: ' + highlightedOrders.join(', ');
-                        } else {
-                            variant.style.display = 'none';
-                        }
-                    });
-                    
-                    // Show/hide the group based on whether it has visible variants
-                    if (groupHasVisibleVariants) {
-                        group.style.display = 'block';
-                        // Auto-expand groups with matching orders
-                        const variantsContainer = group.querySelector('.variants');
-                        variantsContainer.style.display = 'block';
-                        visibleGroupCount++;
-                    } else {
-                        group.style.display = 'none';
-                    }
+                    visibleCount++;
                 } else {
-                    // Product name search
-                    if (groupName.includes(searchValue)) {
-                        group.style.display = 'block';
-                        variants.forEach(variant => {
-                            variant.style.display = 'flex';
-                            // Reset order number highlighting
-                            const orderElement = variant.querySelector('.order-numbers');
-                            const orders = variant.getAttribute('data-orders').split(',');
-                            orderElement.innerHTML = 'Orders: ' + orders.join(', ');
-                        });
-                        visibleGroupCount++;
-                    } else {
-                        group.style.display = 'none';
-                    }
+                    group.style.display = 'none';
                 }
             });
 
-            // Update search hint
-            if (isOrderSearch && searchValue !== '') {
-                if (totalVisibleItems > 0) {
-                    searchHint.textContent = 'Showing ' + totalVisibleItems + ' item(s) for order #' + cleanOrderSearch;
-                    searchHint.classList.add('active');
-                } else {
-                    searchHint.textContent = 'No items found for order #' + cleanOrderSearch;
-                    searchHint.classList.add('active');
-                }
-            } else {
-                searchHint.classList.remove('active');
-            }
-
-            // Show/hide no results message
             const noResults = document.getElementById('noResults');
             const productList = document.getElementById('productList');
-            if (visibleGroupCount === 0 && searchValue !== '') {
+            if (visibleCount === 0 && searchValue !== '') {
                 noResults.style.display = 'block';
             } else {
                 noResults.style.display = 'none';
-            }
-        }
-
-        function showOrderDetails(orderNumber) {
-            if (!orderData || Object.keys(orderData).length === 0) {
-                console.log('No order data available');
-                return;
-            }
-
-            currentSelectedOrder = orderNumber;
-            const order = orderData[orderNumber];
-            
-            if (!order) {
-                console.log('Order not found:', orderNumber);
-                return;
-            }
-
-            // Update active state in list
-            document.querySelectorAll('.order-item').forEach(item => {
-                if (item.getAttribute('data-order-number') === orderNumber) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-
-            // Show print button
-            document.getElementById('printBtn').style.display = 'block';
-            
-            // Format date
-            const orderDate = new Date(order.createdAt);
-            const formattedDate = orderDate.toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            
-            // Build shipping address
-            let shippingHtml = 'No shipping address';
-            if (order.shipping) {
-                const addr = order.shipping;
-                shippingHtml = addr.address1 + '<br>' +
-                    (addr.address2 ? addr.address2 + '<br>' : '') +
-                    addr.city + ', ' + addr.province + ' ' + addr.zip + '<br>' +
-                    addr.country;
-            }
-            
-            // Build items list
-            const itemsHtml = order.items.map(item => 
-                '<div class="order-item-detail">' +
-                    '<div>' +
-                        '<div class="item-name-detail">' + item.name + '</div>' +
-                        (item.variant ? '<div class="item-variant">' + item.variant + '</div>' : '') +
-                    '</div>' +
-                    '<div class="item-quantity-detail">×' + item.quantity + '</div>' +
-                '</div>'
-            ).join('');
-            
-            // Build tags
-            const tagsHtml = order.tags ? order.tags.split(',').map(tag => 
-                '<span class="tag">' + tag.trim() + '</span>'
-            ).join('') : '';
-            
-            // Update details panel
-            let detailsHtml = '';
-            detailsHtml += '<div class="order-header-info">';
-            detailsHtml += '<div class="order-number-large">' + order.number + '</div>';
-            detailsHtml += '<div class="order-meta">' + formattedDate + ' •  + order.total + '</div>';
-            detailsHtml += '</div>';
-            
-            detailsHtml += '<div class="info-section">';
-            detailsHtml += '<div class="info-section-title">Customer</div>';
-            detailsHtml += '<div class="info-content">';
-            detailsHtml += '<strong>' + order.customer.name + '</strong><br>';
-            if (order.customer.email) {
-                detailsHtml += order.customer.email + '<br>';
-            }
-            if (order.customer.phone) {
-                detailsHtml += order.customer.phone;
-            }
-            detailsHtml += '</div>';
-            detailsHtml += '</div>';
-            
-            detailsHtml += '<div class="info-section">';
-            detailsHtml += '<div class="info-section-title">Shipping Address</div>';
-            detailsHtml += '<div class="info-content">' + shippingHtml + '</div>';
-            detailsHtml += '</div>';
-            
-            const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
-            detailsHtml += '<div class="info-section">';
-            detailsHtml += '<div class="info-section-title">Items (' + totalItems + ' total)</div>';
-            detailsHtml += '<div class="order-items-list">' + itemsHtml + '</div>';
-            detailsHtml += '</div>';
-            
-            if (order.note) {
-                detailsHtml += '<div class="info-section">';
-                detailsHtml += '<div class="info-section-title">Order Note</div>';
-                detailsHtml += '<div class="order-note">' + order.note + '</div>';
-                detailsHtml += '</div>';
-            }
-            
-            if (tagsHtml) {
-                detailsHtml += '<div class="info-section">';
-                detailsHtml += '<div class="info-section-title">Tags</div>';
-                detailsHtml += '<div class="order-tags">' + tagsHtml + '</div>';
-                detailsHtml += '</div>';
-            }
-            
-            document.getElementById('orderDetails').innerHTML = detailsHtml;
-            
-            // Also trigger the search to show this order's items in packing list
-            document.getElementById('searchInput').value = orderNumber.replace('#', '');
-            filterProducts();
-        }
-
-        function printOrder() {
-            if (currentSelectedOrder) {
-                document.body.classList.add('print-mode');
-                window.print();
-                setTimeout(() => {
-                    document.body.classList.remove('print-mode');
-                }, 100);
             }
         }
     </script>
